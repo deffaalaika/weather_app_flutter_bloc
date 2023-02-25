@@ -32,24 +32,27 @@ class MyApp extends StatelessWidget {
           BlocProvider<TempSettingsCubit>(
               create: (context) => TempSettingsCubit()),
           BlocProvider<ThemeCubit>(
-            create: (context) => ThemeCubit(
-              weatherCubit: context.read<WeatherCubit>(),
-            ),
+            create: (context) => ThemeCubit(),
           ),
         ],
         child: ResponsiveSizer(
           builder: (context, orientation, screenType) {
-            return BlocBuilder<ThemeCubit, ThemeState>(
-              builder: (context, state) {
-                return MaterialApp(
-                  title: 'Weather App',
-                  debugShowCheckedModeBanner: false,
-                  theme: state.appTheme == AppTheme.light
-                      ? ThemeData.light()
-                      : ThemeData.dark(),
-                  home: const HomePage(),
-                );
+            return BlocListener<WeatherCubit, WeatherState>(
+              listener: (context, state) {
+                context.read<ThemeCubit>().setTheme(state.weather.temp);
               },
+              child: BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, state) {
+                  return MaterialApp(
+                    title: 'Weather App',
+                    debugShowCheckedModeBanner: false,
+                    theme: state.appTheme == AppTheme.light
+                        ? ThemeData.light()
+                        : ThemeData.dark(),
+                    home: const HomePage(),
+                  );
+                },
+              ),
             );
           },
         ),
