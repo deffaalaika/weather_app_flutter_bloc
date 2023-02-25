@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:convert';
 
+// Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+
+// Project imports:
 import 'package:open_weather_cubit/constant/constants.dart';
 import 'package:open_weather_cubit/exceptions/exceptions.dart';
-
 import '../models/direct_geocoding.dart';
 import '../models/weather.dart';
 import 'http_error_handler.dart';

@@ -1,6 +1,6 @@
+// Project imports:
 import 'package:open_weather_cubit/exceptions/exceptions.dart';
 import 'package:open_weather_cubit/models/costum_error.dart';
-
 import '../models/direct_geocoding.dart';
 import '../models/weather.dart';
 import '../services/weather_api_services.dart';

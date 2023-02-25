@@ -1,13 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:open_weather_cubit/cubits/cubits.dart';
+// Project imports:
 import 'package:open_weather_cubit/repositories/weather_repository.dart';
-import 'package:open_weather_cubit/services/weather_api_services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'pages/home_page.dart';
+import 'imports.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -24,22 +25,22 @@ class MyApp extends StatelessWidget {
           weatherApiServices: WeatherApiServices(httpClient: http.Client())),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<WeatherCubit>(
-            create: (context) => WeatherCubit(
+          BlocProvider<WeatherBloc>(
+            create: (context) => WeatherBloc(
               weatherRepository: context.read<WeatherRepository>(),
             ),
           ),
-          BlocProvider<TempSettingsCubit>(
-              create: (context) => TempSettingsCubit()),
-          BlocProvider<ThemeCubit>(
-            create: (context) => ThemeCubit(
-              weatherCubit: context.read<WeatherCubit>(),
+          BlocProvider<TempSettingsBloc>(
+              create: (context) => TempSettingsBloc()),
+          BlocProvider<ThemeBloc>(
+            create: (context) => ThemeBloc(
+              weatherBloc: context.read<WeatherBloc>(),
             ),
           ),
         ],
         child: ResponsiveSizer(
           builder: (context, orientation, screenType) {
-            return BlocBuilder<ThemeCubit, ThemeState>(
+            return BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 return MaterialApp(
                   title: 'Weather App',

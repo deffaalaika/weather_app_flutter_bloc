@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
+// Project imports:
 import 'package:open_weather_cubit/models/costum_error.dart';
 import 'package:open_weather_cubit/models/weather.dart';
 import 'package:open_weather_cubit/repositories/weather_repository.dart';
